@@ -56,7 +56,8 @@ function tester(){
 		console.log(fiveyrs_range);
 		console.log(five_years);
 		console.log("----------------------------------------------------------------------");
-	
+		drawDates(five_years,1);
+		
 	//Get the missing dates from the 5 year range and the given range
 		console.log("Difference between -5yrs and given dates: ");
 		console.log(fiveyrs_range.subtract(minmaxDate));
@@ -76,10 +77,12 @@ function tester(){
 		
 		console.log("tessst: ");
 		console.log(five_years);
-		$('.footer').html('');
+		drawDates(five_years,2);
+		/*$('.footer').html('');
 		for(i=0; i < five_years.length; i++){
 			$('.footer').append(five_years[i]+' | ');
-		}
+		}*/
+		
 	//Put minmax dates into an array
 		/*var minmaxdates = [];
 		var counter_i = 0;
@@ -94,4 +97,30 @@ function tester(){
 		console.log(diff);*/
 
 	/*ittvolt*/
+}
+
+
+function drawDates(dates,type){
+	
+	console.log("drawdates");
+	if(type==1){
+		$(".testerdiv").html('');
+		var divs = [];
+		var starter = "<div style='width:100%;height:auto;display:inline-block;'>";
+		$(".testerdiv").append(starter);
+		var ender = "</div>";
+		divs[(dates.length)+1] = "</div>";	
+		for(i=0;i<dates.length;i++){
+			divs[i] = "<div style='display:block;width:auto;background-color:grey;padding:2px;border:1px solid;' id='id_"+dates[i]+"'>"+dates[i]+"</div>";
+			$(".testerdiv").append("<div style='display:block;float:left;padding:2px;width:auto;background-color:grey;border:1px solid;' id='id_"+dates[i].replace("/","_")+"' >"+dates[i]+"</div>");
+		}
+		$(".testerdiv").append(ender);
+	}else{
+		for(i=0;i<dates.length;i++){
+			$("#id_"+dates[i].replace("/","_")).attr('title','Missing history!');
+			$("#id_"+dates[i].replace("/","_")).css("background-color","red");
+			$("#id_"+dates[i].replace("/","_")).addClass("missing");
+		}
+		$( ".missing" ).tooltip();
+	}
 }
